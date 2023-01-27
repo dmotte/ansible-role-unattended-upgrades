@@ -6,14 +6,14 @@
     mode: "0644"
   when: unattended_upgrades_conf is defined
 
-- name: Ensure the apt-daily.timer.d directory exist and with the right permissions
+- name: Ensure the apt-daily.timer.d directory exists and with the right permissions
   ansible.builtin.file:
     path: /etc/systemd/system/apt-daily.timer.d
     state: directory
     mode: "0755"
   when: apt_daily_override_conf is defined
 
-- name: Ensure the apt-daily-upgrade.timer.d directory exist and with the right permissions
+- name: Ensure the apt-daily-upgrade.timer.d directory exists and with the right permissions
   ansible.builtin.file:
     path: /etc/systemd/system/apt-daily-upgrade.timer.d
     state: directory
