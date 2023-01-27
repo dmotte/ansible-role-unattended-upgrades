@@ -1,0 +1,30 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: unattended_upgrades
+  author: dmotte
+  description: Ansible role to configure unattended upgrades on Debian
+  license: MIT
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Debian
+      versions:
+        - all
+  galaxy_tags:
+    - cron
+    - schedule
+    - debian
+    - packages
+    - apt
+    - calendar
+    - automatic
+    - systemd
+    - systemctl
+    - timer
+    - timers
+    - unattended
+    - upgrade
+    - upgrades
+    - unattended-upgrade
+    - unattended-upgrades

@@ -1,0 +1,25 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Main play
+  hosts: all
+
+  tasks:
+    - name: Include the role from the parent directory
+      ansible.builtin.include_role: { name: "{{ playbook_dir | dirname }}" }
+      vars:
+        ansible_become: true
+        unattended_upgrades_conf: |
+          Unattended-Upgrade::Origins-Pattern { "origin=*"; };
+          Unattended-Upgrade::Package-Blacklist {};
+        # The empty "OnCalendar=" lines in the configurations below are
+        # needed to reset the default values
+        apt_daily_override_conf: |
+          [Timer]
+          OnCalendar=
+          OnCalendar=*-*-* 04:00
+          RandomizedDelaySec=0
+        apt_daily_upgrade_override_conf: |
+          [Timer]
+          OnCalendar=
+          OnCalendar=*-*-* 05:00
+          RandomizedDelaySec=0

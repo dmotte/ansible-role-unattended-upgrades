@@ -1,0 +1,49 @@
+---
+- name: Create the 50unattended-upgrades file
+  ansible.builtin.template:
+    src: 50unattended-upgrades.j2
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    mode: "0644"
+  when: unattended_upgrades_conf is defined
+
+- name: Ensure the apt-daily.timer.d directory exist and with the right permissions
+  ansible.builtin.file:
+    path: /etc/systemd/system/apt-daily.timer.d
+    state: directory
+    mode: "0755"
+  when: apt_daily_override_conf is defined
+
+- name: Ensure the apt-daily-upgrade.timer.d directory exist and with the right permissions
+  ansible.builtin.file:
+    path: /etc/systemd/system/apt-daily-upgrade.timer.d
+    state: directory
+    mode: "0755"
+  when: apt_daily_upgrade_override_conf is defined
+
+- name: Create the apt-daily.timer.d/override.conf file
+  ansible.builtin.template:
+    src: apt-daily-override.conf.j2
+    dest: /etc/systemd/system/apt-daily.timer.d/override.conf
+    mode: "0644"
+  when: apt_daily_override_conf is defined
+  notify: Systemctl daemon-reload and restart the apt-daily timer
+
+- name: Create the apt-daily-upgrade.timer.d/override.conf file
+  ansible.builtin.template:
+    src: apt-daily-upgrade-override.conf.j2
+    dest: /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
+    mode: "0644"
+  when: apt_daily_upgrade_override_conf is defined
+  notify: Systemctl daemon-reload and restart the apt-daily-upgrade timer
+
+- name: Enable unattended upgrades via debconf
+  # This should create the /etc/apt/apt.conf.d/20auto-upgrades file
+  ansible.builtin.debconf:
+    name: unattended-upgrades
+    question: unattended-upgrades/enable_auto_updates
+    vtype: boolean
+    value: "true"
+  notify: Reconfigure the unattended-upgrades package
+
+- name: Force all notified handlers to run at this point
+  ansible.builtin.meta: flush_handlers
