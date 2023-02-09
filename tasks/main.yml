@@ -1,4 +1,8 @@
 ---
+- name: Ensure the unattended-upgrades package is installed
+  ansible.builtin.package:
+    name: unattended-upgrades
+
 - name: Create the 50unattended-upgrades file
   ansible.builtin.template:
     src: 50unattended-upgrades.j2
