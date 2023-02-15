@@ -30,7 +30,9 @@
     dest: /etc/systemd/system/apt-daily.timer.d/override.conf
     mode: "0644"
   when: apt_daily_override_conf is defined
-  notify: Systemctl daemon-reload and restart the apt-daily timer
+  notify:
+    - Issue systemctl daemon-reload to pick up config changes
+    - Restart the apt-daily timer
 
 - name: Create the apt-daily-upgrade.timer.d/override.conf file
   ansible.builtin.template:
@@ -38,7 +40,9 @@
     dest: /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
     mode: "0644"
   when: apt_daily_upgrade_override_conf is defined
-  notify: Systemctl daemon-reload and restart the apt-daily-upgrade timer
+  notify:
+    - Issue systemctl daemon-reload to pick up config changes
+    - Restart the apt-daily-upgrade timer
 
 - name: Enable unattended upgrades via debconf
   # This should create the /etc/apt/apt.conf.d/20auto-upgrades file

@@ -2,21 +2,16 @@
 - name: Issue systemctl daemon-reload to pick up config changes
   ansible.builtin.systemd:
     daemon_reload: true
-  listen:
-    - Systemctl daemon-reload and restart the apt-daily timer
-    - Systemctl daemon-reload and restart the apt-daily-upgrade timer
 
 - name: Restart the apt-daily timer
   ansible.builtin.systemd:
     name: apt-daily.timer
     state: restarted
-  listen: Systemctl daemon-reload and restart the apt-daily timer
 
 - name: Restart the apt-daily-upgrade timer
   ansible.builtin.systemd:
     name: apt-daily-upgrade.timer
     state: restarted
-  listen: Systemctl daemon-reload and restart the apt-daily-upgrade timer
 
 - name: Reconfigure the unattended-upgrades package
   ansible.builtin.command:
