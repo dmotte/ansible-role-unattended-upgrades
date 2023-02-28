@@ -12,7 +12,7 @@ See the [official Debian wiki](https://wiki.debian.org/UnattendedUpgrades) for m
 ## Usage
 
 1. Install this role using the `ansible-galaxy` CLI tool
-2. You can then include it into the `tasks` section of your _Ansible Playbook_. See [`test/playbook.yml`](test/playbook.yml) for an example of how to do that.
+2. You can then include it into the `tasks` section of your _Ansible Playbook_. See [`test/playbook.yml`](test/playbook.yml) for an example of how to do that. Remember to replace the role name with `dmotte.unattended_upgrades`.
 
 > :bulb: **Tip**: if you want to see how a **systemd calendar event expression** will behave, you can use the `systemd-analyze` command:
 >
