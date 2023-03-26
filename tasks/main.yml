@@ -14,28 +14,28 @@
     src: 50unattended-upgrades.j2
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
     mode: "0644"
-  when: unattended_upgrades_conf is defined
+  when: unattended_upgrades_conf != ""
 
 - name: Ensure the apt-daily.timer.d directory exists and with the right permissions
   ansible.builtin.file:
     path: /etc/systemd/system/apt-daily.timer.d
     state: directory
     mode: "0755"
-  when: apt_daily_override_conf is defined
+  when: apt_daily_override_conf != ""
 
 - name: Ensure the apt-daily-upgrade.timer.d directory exists and with the right permissions
   ansible.builtin.file:
     path: /etc/systemd/system/apt-daily-upgrade.timer.d
     state: directory
     mode: "0755"
-  when: apt_daily_upgrade_override_conf is defined
+  when: apt_daily_upgrade_override_conf != ""
 
 - name: Create the apt-daily.timer.d/override.conf file
   ansible.builtin.template:
     src: apt-daily-override.conf.j2
     dest: /etc/systemd/system/apt-daily.timer.d/override.conf
     mode: "0644"
-  when: apt_daily_override_conf is defined
+  when: apt_daily_override_conf != ""
   notify:
     - Issue systemctl daemon-reload to pick up config changes
     - Restart the apt-daily timer
@@ -45,7 +45,7 @@
     src: apt-daily-upgrade-override.conf.j2
     dest: /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
     mode: "0644"
-  when: apt_daily_upgrade_override_conf is defined
+  when: apt_daily_upgrade_override_conf != ""
   notify:
     - Issue systemctl daemon-reload to pick up config changes
     - Restart the apt-daily-upgrade timer

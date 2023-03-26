@@ -28,11 +28,7 @@ See the [official Debian wiki](https://wiki.debian.org/UnattendedUpgrades) for m
 
 ### Role variables
 
-| Variable                          | Description                                                                                                                        |
-| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `unattended_upgrades_conf`        | If set, content for the `/etc/apt/apt.conf.d/50unattended-upgrades` file. If not set, that file won't be created                   |
-| `apt_daily_override_conf`         | If set, content for the `/etc/systemd/system/apt-daily.timer.d/override.conf` file. If not set, that file won't be created         |
-| `apt_daily_upgrade_override_conf` | If set, content for the `/etc/systemd/system/apt-daily-upgrade.timer.d/override.conf` file. If not set, that file won't be created |
+See [`defaults/main.yml`](defaults/main.yml).
 
 ## Development
 
