@@ -16,3 +16,4 @@
 - name: Reconfigure the unattended-upgrades package
   ansible.builtin.command:
     cmd: dpkg-reconfigure -f noninteractive unattended-upgrades
+  changed_when: false
