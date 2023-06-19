@@ -5,7 +5,7 @@
 
 Ansible role to **configure unattended upgrades** on _Debian_.
 
-This role has been tested with **Debian 11** (_bullseye_).
+This role has been tested with **Debian 12** (_bookworm_).
 
 See the [official Debian wiki](https://wiki.debian.org/UnattendedUpgrades) for more information about unattended upgrades.
 
